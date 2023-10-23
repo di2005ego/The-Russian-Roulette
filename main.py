@@ -52,4 +52,4 @@ if int(s[secret])==v:
     os.system('shutdown /s /t 1')
 else:
     print("Повезло")
-print(s[secret])
+print("Сгенерированное число: ", s[secret])
