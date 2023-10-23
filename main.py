@@ -24,12 +24,13 @@ if response:
     temp_country = weather_country["main"]["temp"]
     humidity_country = weather_country["main"]["humidity"]
     pressure_country = weather_country["main"]["pressure"]
-    print("temp", temp_country, "pressure", pressure_country,"humidity", humidity_country)
 x=int(pressure_country)-5*humidity_country
 y=int(temp_country*(humidity_country/100))
-secret=str(temp_country)[0]
+secret=int(str(temp_country)[0])
 if x>640:
     x=x-640
+if y>480:
+    y=y-480
 import cv2
 cap=cv2.VideoCapture(0)
 cap.set(cv2.CAP_PROP_FRAME_WIDTH, 640)
@@ -42,19 +43,13 @@ img = Image.open("photo.png")
 color=img.getpixel((x, y))
 s=color[0]*((color[1])**2)*((color[2])**3)+color[0]+2*color[1]+3*color[2]
 s=str(s)
-print("Введите число от 1 до 10")
+print("Введите число от 0 до 9")
 v=int(input())
-n=0
-print(s)
-if len(s)<10:
-    n=10-len(s)
-    s=s+n*secret
-if len(s)>10:
-    s=s[:10]
-print(s)
 import os
 os.remove("photo.png")
-if int(s[v-1])==v:
+if int(s[secret])==v:
+    print("Не повезло")
     os.system('shutdown /s /t 1')
 else:
     print("Повезло")
+print(s[secret])
